@@ -1,2 +1,2 @@
 # wyscigipociagow
-made by troll, ale trollowi sie nie chce tworzyc repo
+made by troll, ale dodałem nowości i będę to updateował
