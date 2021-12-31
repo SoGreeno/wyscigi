@@ -173,7 +173,7 @@ const server = new ws.Server({
                         // sama gra
 
 
-                        let p = ["Paliwa nalałeś na 2cm ruchu", "Powerbank wybychł", "Pociąg zapadł w depresję", "Pociąg został planetą", "pociąg nie lubił właściciela", "TheTroll zjadł koła pociągu", "pzpl zjadł ci pociąg", "liseu zjadł wagony", "Pieseł zjadł silnik"];
+                        let p = ["Paliwa nalałeś na 2cm ruchu", "Powerbank wybuchł", "Pociąg zapadł w depresję", "Pociąg został planetą", "pociąg nie lubił właściciela", "TheTroll zjadł koła pociągu", "pzpl zjadł ci pociąg", "liseu zjadł wagony", "Pieseł zjadł silnik", "SoGreeno wypił całe paliwo", "Blizzard zcancelował pociąg", "Pociąg wpadł do /dev/null", "undefined",];
 
 
                         
@@ -236,11 +236,11 @@ const server = new ws.Server({
                                             // a jednak
                                             room.players.forEach(s => s.send(JSON.stringify({
                                                 "type": "roomChat",
-                                                "value": "wszyscy się wykoleili... naprawcie sobie pociągi na następny raz spk?"
+                                                "value": "Wszyscy się wykoleili... Może kupcie lepsze pociągi na następny raz?"
                                             })));
                                             room.players.forEach(s => s.send(JSON.stringify({
                                                 "type": "roomChat",
-                                                "value": "za 5 sekund będzie można zacząć nową grę."
+                                                "value": "Za 5 sekund będzie można zacząć nową grę."
                                             })));
                                             clearInterval(h)
                                             setTimeout(function() {
@@ -280,11 +280,11 @@ const server = new ws.Server({
                                 if(room.playerPositions[i] >= 9) {
                                     room.players.forEach(s => s.send(JSON.stringify({
                                         "type": "roomChat",
-                                        "value": "gg " + i + ", wygrałeś!"
+                                        "value": "GG " + i + ", wygrałeś!"
                                     })));
                                     room.players.forEach(s => s.send(JSON.stringify({
                                         "type": "roomChat",
-                                        "value": "za 5 sekund będzie można zacząć nową grę."
+                                        "value": "Za 5 sekund będzie można zacząć nową grę."
                                     })));
                                     clearInterval(h);
                                     setTimeout(function() {
