@@ -17,10 +17,10 @@ function roomExists(name) {
 
 function randomCharset() {
     // losowe znaki do id gier
-    let kb = "qwertyuiopsdfghjklzxcvbnm".split("") //array
-    let final = "";
+    let kb = "rfvtgbyhn".split("") //array
+    let final = ""; //lekko zmieniony generator room id, żeby było można szybciej dołączyć do pokoju #qwe
 
-    let dLength = 6 // zmiana tej wartości zmieni długość każdego id
+    let dLength = 4 // zmiana tej wartości zmieni długość każdego id
     let c = 0;
 
     while(c !== dLength) {
@@ -38,9 +38,9 @@ function plsNoXSS(text) {
 
 
 
-// hostujemy webserver na porcie 671
+// hostujemy webserver na porcie 80
 const app = express();
-app.listen(671, () => {
+app.listen(80, () => {
     console.log('wyscigi_pociagow');
 });
 
@@ -53,7 +53,7 @@ app.get('/api/join_room', (req,res) => {
 
     if(roomExists(roomName) == false) {
         ok = false;
-        message = "pokój o takiej nazwie nie istnieje"
+        message = "zły kod sire"
     }
     
     res.send({
@@ -160,7 +160,7 @@ const server = new ws.Server({
 
 
                     // no dobra, ale czy jest więcej niż 2 graczy?
-                    if(room.players.length >= 2) {
+                    if(room.players.length >= 1) { // minimum 2 graczy tymczasowo usunięty, jestem ciekaw czy singleplayer działa #qwe
                         // jeszcze jak
                         rooms[socket["roomid"]].started = true;
                         room.players.forEach(s => s.send(JSON.stringify({
@@ -173,7 +173,7 @@ const server = new ws.Server({
                         // sama gra
 
 
-                        let p = ["Paliwa nalałeś na 2cm ruchu", "Powerbank wybuchł", "Pociąg zapadł w depresję", "Pociąg został planetą", "pociąg nie lubił właściciela", "TheTroll zjadł koła pociągu", "pzpl zjadł ci pociąg", "liseu zjadł wagony", "Pieseł zjadł silnik", "SoGreeno wypił całe paliwo", "Blizzard zcancelował pociąg", "Pociąg wpadł do /dev/null", "undefined",];
+                        let p = ["Paliwa nalałeś na 2cm ruchu", "Powerbank wybuchł", "Pociąg zapadł w depresję", "Pociąg został planetą", "pociąg nie lubił właściciela", "TheTroll zjadł koła pociągu", "pzpl zjadł ci pociąg", "guam zjadł wagony", "Pieseł zjadł silnik", "SoGreeno wypił całe paliwo", , "Pociąg wpadł do /dev/null", "undefined", "Pociąg zapomniał jak jeździć", "Pociąg wymazał abl"];
 
 
                         
@@ -204,7 +204,7 @@ const server = new ws.Server({
 
                         let loseChance = 5;
                         let driveChance = 70;
-
+                        let boostChance = 2;
 
                         let h = setInterval(function() {
                             room.players.forEach(player => {
@@ -216,6 +216,11 @@ const server = new ws.Server({
                                         room.playerPositions[player["name"]] += 1;
                                     };
 
+                                    if(room.playerLost[player["name"]] == false) { 
+                                        // wrumr
+                                        if(Math.floor(Math.random() * 100) <= boostChance) {
+                                            room.playerPositions[player["name"]] += 2;
+                                        }};
 
                                     // wykoleił się
                                     if(Math.floor(Math.random() * 100) <= loseChance) {
@@ -280,7 +285,7 @@ const server = new ws.Server({
                                 if(room.playerPositions[i] >= 9) {
                                     room.players.forEach(s => s.send(JSON.stringify({
                                         "type": "roomChat",
-                                        "value": "GG " + i + ", wygrałeś!"
+                                        "value": "GG " + i + ", dojechał do mety!"
                                     })));
                                     room.players.forEach(s => s.send(JSON.stringify({
                                         "type": "roomChat",
@@ -351,7 +356,7 @@ const server = new ws.Server({
         })))
 
         // druga osoba zostaje hostem
-        room["host"] = room.players[0];
+        room["host"] = room.players[0];  
         room["host"].send(JSON.stringify({
             "type": "hostNotif",
             "value": "h"
