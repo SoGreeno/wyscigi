@@ -105,12 +105,28 @@ const server = new ws.Server({
                 socket["roomid"] = id;
 
                 console.log(name, id);
+                
                 if(!rooms[id]) {
                     rooms[id] = {}
                     rooms[id]["players"] = []
                     rooms[id]["code"] = id;
                 };
+                
+                // czy w pokoju jest gracz o takim samym nicku?
+		let e = false;
+		rooms[id].players.forEach(s => {
+			if (s.name == name) return e = true;
+		});
+		
+		if (e) {
+			socket["name"] = "";
+			socket["roomid"] = "";
 
+                   	return socket.send(JSON.stringify({
+                        	"type": "alertMessage",
+                       		"value": "w grze jest już gracz o takiej nazwie."
+                   	}));
+		}
 
                 // czy gra w pokoju już się zaczęła?
                 if(rooms[id].started !== true) {
