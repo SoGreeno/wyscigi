@@ -71,10 +71,10 @@ function game() {
                 s("#game-chat").innerHTML += msg.value + "<br>";
                 s("#game-chat").scrollTo(0, s("#game-chat").scrollHeight);
                 break;
-            case "chatClear":
+           /* case "chatClear":
                 // czyszczenie czatu
                 s("#game-chat").innerHTML = "";
-                break;
+                break;*/
             case "roomCode":
                 // kod do zaproszenia
                 s("#game p").innerHTML = "kod do zaproszenia: " + msg.value;
