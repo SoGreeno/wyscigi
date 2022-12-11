@@ -53,7 +53,7 @@ app.get('/api/join_room', (req,res) => {
 
     if(roomExists(roomName) == false) {
         ok = false;
-        message = "zły kod sire"
+        message = "podałeś zły kod lub ten pokój nie istnieje"
     }
     
     res.send({
@@ -220,7 +220,6 @@ const server = new ws.Server({
 
                         let loseChance = 5;
                         let driveChance = 70;
-                        let boostChance = 2;
 
                         let h = setInterval(function() {
                             room.players.forEach(player => {
@@ -231,12 +230,6 @@ const server = new ws.Server({
                                     if(Math.floor(Math.random() * 100) <= driveChance) {
                                         room.playerPositions[player["name"]] += 1;
                                     };
-
-                                    if(room.playerLost[player["name"]] == false) { 
-                                        // wrumr
-                                        if(Math.floor(Math.random() * 100) <= boostChance) {
-                                            room.playerPositions[player["name"]] += 2;
-                                        }};
 
                                     // wykoleił się
                                     if(Math.floor(Math.random() * 100) <= loseChance) {
