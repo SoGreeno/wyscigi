@@ -191,7 +191,7 @@ const server = new ws.Server({
 
                         let p = ["Paliwa nalałeś na 2cm ruchu", "Powerbank wybuchł", "Pociąg zapadł w depresję", "Pociąg został planetą", "pociąg nie lubił właściciela", "TheTroll zjadł koła pociągu", "pzpl zjadł ci pociąg", "guam zjadł wagony", "Pieseł zjadł silnik", "SoGreeno wypił całe paliwo", , "Pociąg wpadł do /dev/null", "undefined", "Pociąg zapomniał jak jeździć", "Pociąg wymazał abl"];
 
-
+			let pp = ["Z czego macie te pociągi? Z kartonu?","Może kupcie lepsze pociągi na następny raz?","Nie kupujcie pociągów z Allegro znowu, spoko?"]
                         
 
 
@@ -235,6 +235,7 @@ const server = new ws.Server({
                                     if(Math.floor(Math.random() * 100) <= loseChance) {
                                         room.playerLost[player["name"]] = true;
                                         let reason = p[Math.floor(Math.random() * p.length)];
+					let reasonall = pp[Math.floor(Math.random() * p.length)];
                                         room.players.forEach(s => s.send(JSON.stringify({
                                             "type": "roomChat",
                                             "value": player["name"] + " przegrał. powód: " + reason
@@ -250,7 +251,7 @@ const server = new ws.Server({
                                             // a jednak
                                             room.players.forEach(s => s.send(JSON.stringify({
                                                 "type": "roomChat",
-                                                "value": "Wszyscy się wykoleili... Może kupcie lepsze pociągi na następny raz?"
+                                                "value": "Wszyscy się wykoleili... " + reasonall
                                             })));
                                             room.players.forEach(s => s.send(JSON.stringify({
                                                 "type": "roomChat",
