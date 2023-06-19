@@ -235,7 +235,7 @@ const server = new ws.Server({
                                     if(Math.floor(Math.random() * 100) <= loseChance) {
                                         room.playerLost[player["name"]] = true;
                                         let reason = p[Math.floor(Math.random() * p.length)];
-					let reasonall = pp[Math.floor(Math.random() * p.length)];
+					let reasonall = pp[Math.floor(Math.random() * pp.length)];
                                         room.players.forEach(s => s.send(JSON.stringify({
                                             "type": "roomChat",
                                             "value": player["name"] + " przegrał. powód: " + reason
